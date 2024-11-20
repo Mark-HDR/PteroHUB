@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  aapanel:
+    image: aapanel/aapanel:lib
+    container_name: aapanel
+    ports:
+      - "8886:8888" # Control Panel
+      - "80:80"     # HTTP
+      - "443:443"   # HTTPS
+      - "889:888"   # PhpMyAdmin
+      - "22:21"     # SSH/FTP
+    volumes:
+      - ./website_data:/www/wwwroot    # Direktori untuk data website
+      - ./mysql_data:/www/server/data  # Direktori untuk database MySQL
+      - ./vhost:/www/server/panel/vhost # Direktori untuk file vhost
+    restart: unless-stopped
