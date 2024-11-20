@@ -1,17 +1,22 @@
 version: '3.8'
-
 services:
   aapanel:
     image: aapanel/aapanel:lib
     container_name: aapanel
     ports:
-      - "8886:8888" # Control Panel
-      - "80:80"     # HTTP
-      - "443:443"   # HTTPS
-      - "889:888"   # PhpMyAdmin
-      - "22:21"     # SSH/FTP
+      - "8886:7800"
+      - "22:21"
+      - "443:443"
+      - "80:80"
+      - "889:888"
     volumes:
-      - ./website_data:/www/wwwroot    # Direktori untuk data website
-      - ./mysql_data:/www/server/data  # Direktori untuk database MySQL
-      - ./vhost:/www/server/panel/vhost # Direktori untuk file vhost
-    restart: unless-stopped
+      - ./website_data:/www/wwwroot
+      - ./mysql_data:/www/server/data
+      - ./vhost:/www/server/panel/vhost
+    restart: always
+    environment:
+      TZ: Asia/Jakarta
+
+networks:
+  default:
+    driver: bridge
